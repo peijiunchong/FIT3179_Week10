@@ -1,0 +1,80 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 600,
+  "height": 400,
+  "title": "",
+  "data": {
+    "values": [
+      {
+        "category": "EXG",
+        "value": 12,
+        "description": "Attacked using ground-based weapons"
+      },
+      {
+        "category": "MIL",
+        "value": 68,
+        "description": "Military (accident/incident)"
+      },
+      {
+        "category": "COM",
+        "value": 441,
+        "description": "Commercial (accident/incident)"
+      },
+      {"category": "INB", "value": 14, "description": "Bombing"},
+      {
+        "category": "EXS",
+        "value": 13,
+        "description": "Attacked by other aircraft"
+      },
+      {"category": "INH", "value": 9, "description": "Hijacking"}
+    ]
+  },
+  "encoding": {
+    "theta": {"field": "value", "type": "quantitative", "stack": true},
+    "color": {
+      "field": "category",
+      "type": "nominal",
+      "title": "Type of Attacks"
+    },
+    "opacity": {
+      "condition": {"param": "attack_type_highlight", "value": 1},
+      "value": 0.5
+    },
+    "tooltip": [
+      {"field": "category", "title": "Type"},
+      {"field": "description", "title": "Description"},
+      {"field": "value", "title": "Number of accidents"}
+    ]
+  },
+  "layer": [
+    {
+      "mark": {"type": "arc", "innerRadius": 100},
+      "params": [
+        {
+          "name": "attack_type_highlight",
+          "select": {"type": "point", "fields": ["category"]},
+          "bind": "legend"
+        }
+      ]
+    },
+    {
+      "mark": {
+        "type": "text",
+        "radius": 220,
+        "fontSize": 11.5,
+        "fontStyle": "italic"
+      },
+      "encoding": {
+        "text": {"field": "category", "type": "nominal"},
+        "color": {"value": "black"}
+      }
+    }
+  ],
+  "config": {
+    "style": {
+      "cell": {
+        "stroke": "transparent"
+      }
+    }
+  }
+}
